@@ -1,0 +1,21 @@
+﻿@page "{id:int}"
+@model CarProject.Pages.UpdateModel
+
+<h2>Редактирование автомобиля</h2>
+
+<form method="post">
+    <input name="id" value="@Model.Auto?.Id" type="hidden" />
+    <p>
+        <label>Марка</label><br />
+        <input name="brand" value="@Model.Auto?.Brand" />
+    </p>
+    <p>
+        <label>Модель</label><br />
+        <input name="model" value="@Model.Auto?.Model"/>
+    </p>
+    <p>
+        <label>Цвет</label><br />
+        <input name="color" value="@Model.Auto?.Color"/>
+    </p>
+    <input type="submit" value="Сохранить" />
+</form>

@@ -1,0 +1,24 @@
+﻿@page
+@model CarProject.Pages.CreateModel
+
+<h2>Добавление нового автомобиля</h2>
+<form method="post">
+    <p>
+        <label>Марка:</label><br />
+        <select id="select1" name="brands" asp-items="Model.Brands"></select>
+    </p>
+    <p>
+        <label>Модель:</label><br />
+        <select id="select1" name="model"></select>
+    </p>
+    <p>
+        <label>Цвет:</label><br />
+        <select id="select1"name="color" />
+    </p>
+    <input type="submit" value="Отправить" />
+</form>
+
+$("#select1").on("change", function() {
+    var options = "Model";
+    $('#select2').html(options);
+});
