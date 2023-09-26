@@ -14,7 +14,15 @@ namespace CarProject.Pages
         ApplicationContext context;
         [BindProperty]
         public Car Auto { get; set; } = new();
+        [BindProperty]
+        public Brand Brand { get; set; } = new();
+        [BindProperty]
+        public CarModel Model { get; set; } = new();
+        [BindProperty]
+        public CarColor Color { get; set; } = new();
         public Microsoft.AspNetCore.Mvc.Rendering.SelectList BrandsSelect { get; private set; }
+        public Microsoft.AspNetCore.Mvc.Rendering.SelectList ModelsSelect { get; private set; }
+        public Microsoft.AspNetCore.Mvc.Rendering.SelectList ColorsSelect { get; private set; }
         public List<Brand> Brands { get; private set; } = new();
         public List<CarModel> Models { get; private set; } = new();
         public List<CarColor> Colors { get; private set; } = new();

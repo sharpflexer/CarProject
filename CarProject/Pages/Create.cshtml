@@ -4,19 +4,15 @@
 <form method="post">
     <p>
         <label>Марка:</label><br />
-        <select id="select1" name="brands" asp-items="Model.BrandsSelect"></select>
+        <select id="select1" asp-for="Auto.Brand.Id" name="brand" asp-items="Model.BrandsSelect"></select>
     </p>
     <p>
         <label>Модель:</label><br />
-        <select id="select2" name="models"></select>
+        <select id="select2" asp-for="Auto.Model.Id" name="model"></select>
     </p>
     <p>
         <label>Цвет:</label><br />
-        <select id="select3" name="colors"></select>
-    </p>
-    <p>
-        <label>Ничего:</label><br />
-        <select id="select4" name="nothing"></select>
+        <select id="select3" asp-for="Auto.Color.Id" name="color"></select>
     </p>
     <input type="submit" value="Отправить" />
 </form>
@@ -30,17 +26,19 @@
                 $("#select2").empty();
                 $.getJSON(`?handler=ModelsById&id=${brandId}`, (data) => {
                     $.each(data, function (i, item) {
+                        console.log(data);
+                        console.log(item);
                         $("#select2").append(`<option value="${item.id}">${item.name}</option>`);
                     });
                 });
             });
-        });
-        $(function () {
             $("#select2").on("change", function () {
                 var modelId = $(this).val();
                 $("#select3").empty();
                 $.getJSON(`?handler=ColorsById&id=${modelId}`, (data) => {
                     $.each(data, function (i, item) {
+                        console.log(data);
+                        console.log(item);
                         $("#select3").append(`<option value="${item.id}">${item.name}</option>`);
                     });
                 });

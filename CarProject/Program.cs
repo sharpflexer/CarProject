@@ -9,6 +9,11 @@ builder.Services.AddRazorPages();
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseNpgsql(connection));
+builder.Services.AddMvc()
+     .AddNewtonsoftJson(
+          options => {
+              options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+          });
 
 var app = builder.Build();
 
