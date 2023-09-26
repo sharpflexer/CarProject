@@ -41,11 +41,11 @@ namespace CarProject.Pages
         {
             Auto = new Car()
             {
-                Brand = Brands.Find(brand => brand.Id == brandId),
-                Model = Models.Find(model => model.Id == modelId),
-                Color = Colors.Find(color => color.Id == colorId),
+                Brand = context.Brands.Single(brand => brand.Id == brandId),
+                Model = context.Models.Single(model => model.Id == modelId),
+                Color = context.Colors.Single(color => color.Id == colorId),
             };
-            context.Cars.AsNoTracking().Append(Auto);
+            context.Cars.Add(Auto);
             await context.SaveChangesAsync();
             return RedirectToPage("Index");
         }

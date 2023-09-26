@@ -17,7 +17,10 @@ namespace CarProject.Pages
         }
         public void OnGet()
         {
-            Cars = context.Cars.AsNoTracking().ToList();
+            Cars = context.Cars.Include(car => car.Brand)
+                               .Include(car => car.Model)
+                               .Include(car => car.Color)
+                               .AsNoTracking().ToList();
         }
         public async Task<IActionResult> OnPostDeleteAsync(int id)
         {

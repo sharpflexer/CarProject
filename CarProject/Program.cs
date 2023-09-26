@@ -8,7 +8,10 @@ builder.Services.AddRazorPages();
 
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContext<ApplicationContext>(options => options.UseNpgsql(connection));
+builder.Services.AddDbContext<ApplicationContext>(options => {
+    options.UseNpgsql(connection);
+    options.EnableSensitiveDataLogging();
+    });
 builder.Services.AddMvc()
      .AddNewtonsoftJson(
           options => {
