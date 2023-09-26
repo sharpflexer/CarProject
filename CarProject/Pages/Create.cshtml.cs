@@ -14,12 +14,12 @@ namespace CarProject.Pages
         ApplicationContext context;
         [BindProperty]
         public Car Auto { get; set; } = new();
-        [BindProperty]
-        public Brand Brand { get; set; } = new();
-        [BindProperty]
-        public CarModel Model { get; set; } = new();
-        [BindProperty]
-        public CarColor Color { get; set; } = new();
+        //[BindProperty]
+        //public Brand Brand { get; set; } = new();
+        //[BindProperty]
+        //public CarModel Model { get; set; } = new();
+        //[BindProperty]
+        //public CarColor Color { get; set; } = new();
         public Microsoft.AspNetCore.Mvc.Rendering.SelectList BrandsSelect { get; private set; }
         public Microsoft.AspNetCore.Mvc.Rendering.SelectList ModelsSelect { get; private set; }
         public Microsoft.AspNetCore.Mvc.Rendering.SelectList ColorsSelect { get; private set; }
@@ -37,9 +37,15 @@ namespace CarProject.Pages
         {
             BrandsSelect = new(Brands, nameof(Brand.Id), nameof(Brand.Name));
         }
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int brandId, int modelId, int colorId)
         {
-            context.Cars.Add(Auto);
+            Auto = new Car()
+            {
+                Brand = Brands.Find(brand => brand.Id == brandId),
+                Model = Models.Find(model => model.Id == modelId),
+                Color = Colors.Find(color => color.Id == colorId),
+            };
+            context.Cars.AsNoTracking().Append(Auto);
             await context.SaveChangesAsync();
             return RedirectToPage("Index");
         }

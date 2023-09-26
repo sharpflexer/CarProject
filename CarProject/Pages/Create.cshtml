@@ -4,15 +4,15 @@
 <form method="post">
     <p>
         <label>Марка:</label><br />
-        <select id="select1" asp-for="Auto.Brand.Id" name="brand" asp-items="Model.BrandsSelect"></select>
+        <select id="select1" asp-for="Auto.Brand.Id" name="brandId" asp-items="Model.BrandsSelect"></select>
     </p>
     <p>
         <label>Модель:</label><br />
-        <select id="select2" asp-for="Auto.Model.Id" name="model"></select>
+        <select id="select2" asp-for="Auto.Model.Id" name="modelId"></select>
     </p>
     <p>
         <label>Цвет:</label><br />
-        <select id="select3" asp-for="Auto.Color.Id" name="color"></select>
+        <select id="select3" asp-for="Auto.Color.Id" name="colorId"></select>
     </p>
     <input type="submit" value="Отправить" />
 </form>
