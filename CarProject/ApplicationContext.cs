@@ -110,6 +110,11 @@ namespace CarProject
                 }
             );
             SaveChanges();
+
+            foreach (CarColor color in Colors.ToList()) {
+                color.Models = Models.Where(model => model.Colors.Contains(color)).ToList();
+            }
+            SaveChanges();
             Brands.AddRange(
                 new Brand()
                 {

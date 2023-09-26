@@ -14,19 +14,20 @@ namespace CarProject.Pages
         ApplicationContext context;
         [BindProperty]
         public Car Auto { get; set; } = new();
-        public Microsoft.AspNetCore.Mvc.Rendering.SelectList Brands { get; private set; }
+        public Microsoft.AspNetCore.Mvc.Rendering.SelectList BrandsSelect { get; private set; }
+        public List<Brand> Brands { get; private set; } = new();
         public List<CarModel> Models { get; private set; } = new();
         public List<CarColor> Colors { get; private set; } = new();
         public CreateModel(ApplicationContext db)
         {
             context = db;
+            Brands = context.Brands.Include(b => b.Models).AsNoTracking().ToList();
+            Models = context.Models.Include(m => m.Colors).AsNoTracking().ToList();
+            Colors = context.Colors.Include(c => c.Models).AsNoTracking().ToList();
         }
         public void OnGet()
         {
-            Brands = new (context.Brands.AsNoTracking().ToList(), nameof(Brand.Id), nameof(Brand.Name));
-        
-            //Models = context.Models.AsNoTracking().ToList();
-            //Colors = context.Colors.AsNoTracking().ToList();
+            BrandsSelect = new(Brands, nameof(Brand.Id), nameof(Brand.Name));
         }
         public async Task<IActionResult> OnPostAsync()
         {
@@ -35,9 +36,15 @@ namespace CarProject.Pages
             return RedirectToPage("Index");
         }
 
-        public Microsoft.AspNetCore.Mvc.Rendering.SelectList GetModelsById(int id)
+        public async Task<Microsoft.AspNetCore.Mvc.JsonResult> OnGetModelsById(int id)
         {
-            return new(context.Brands.Single(b => b.Id.Equals(id)).Models, nameof(CarModel.Id), nameof(CarModel.Name));
+            return new(Brands.Single(b => b.Id.Equals(id)).Models);
         }
+        public async Task<Microsoft.AspNetCore.Mvc.JsonResult> OnGetColorsById(int id)
+        {
+            var colors = Models.Single(m => m.Id.Equals(id)).Colors;
+            return new(colors);
+        }
+
     }
 }
