@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddControllers();
 
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
@@ -34,7 +35,14 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
 app.MapRazorPages();
+app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Index}/{action=Index}");
+    endpoints.MapRazorPages();
+});
 
 app.Run();

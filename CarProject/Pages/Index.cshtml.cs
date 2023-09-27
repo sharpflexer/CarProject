@@ -9,35 +9,9 @@ namespace CarProject.Pages
 {
     public class IndexModel : PageModel
     {
-        ApplicationContext context;
-        public List<Car> Cars { get; private set; } = new();
-        public IndexModel(ApplicationContext db)
+        public List<Car> Cars { get; set; } = new();
+        public IndexModel()
         {
-            context = db;
-        }
-        public void OnGet()
-        {
-            Cars = context.Cars.Include(car => car.Brand)
-                               .Include(car => car.Model)
-                               .Include(car => car.Color)
-                               .AsNoTracking().ToList();
-        }
-        public async Task<IActionResult> OnPostDeleteAsync(int id)
-        {
-            var auto = await context.Cars.FindAsync(id);
-
-            if (auto != null)
-            {
-                context.Cars.Remove(auto);
-                await context.SaveChangesAsync();
-            }
-
-            return RedirectToPage();
-        }
-
-        public IActionResult OnPostUpdateAsync(int id)
-        {
-            return RedirectToPage("Update", new { id });
         }
     }
 }
